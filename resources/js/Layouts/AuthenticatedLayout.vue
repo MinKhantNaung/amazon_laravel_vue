@@ -103,5 +103,81 @@ const showingNavigationDropdown = ref(false);
 
         </div>
         <!-- Main Layout Section End -->
+
+        <main>
+            <div class="pt-[98px]"></div>
+            <slot />
+        </main>
+
+        <!-- Footer Layout Section Start -->
+        <div class="w-full bg-white mt-10">
+            <div class="max-w-[1500px] mx-auto">
+                <div class="text-[23px] pt-4 font-extrabold">
+                    Recommended based on your shopping trends
+                </div>
+                <div class="flex justify-center items-stretch">
+                    <div class="p-4 text-center mx-auto">
+                        <div class="w-[158px] h-[150px] overflow-hidden">
+                            <img src="https://via.placeholder.com/158x150" alt="">
+                        </div>
+                        <div class="w-[160px] text-[12px] py-2 text-teal-600 font-extrabold hover:text-red-600 cursor-pointer">
+                            This is a test title
+                        </div>
+                        <div class="flex justify-start">
+                            <div class="text-xs font-extrabold text-red-600 w-full text-left">$99,99</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="bg-[#232F3E]">
+            <div class="bg-[#37475A] hover:bg-gray-600 w-full p-3.5 cursor-pointer text-white font-extrabold text-center">
+                Back To Top
+            </div>
+            <div class="flex justify-between items-stretch max-w-[1000px] mx-auto p-10 text-white">
+                <ul>
+                    <li class="font-extrabold text-lg">Get To Know Us</li>
+                    <li class="hover:underline cursor-pointer">Careers</li>
+                    <li class="hover:underline cursor-pointer">About Amazon</li>
+                    <li class="hover:underline cursor-pointer">Invester Relations</li>
+                    <li class="hover:underline cursor-pointer">Amazon Devices</li>
+                    <li class="hover:underline cursor-pointer">Amazon Science</li>
+                </ul>
+
+                <ul>
+                    <li class="font-extrabold text-lg">Make Money With Us</li>
+                    <li class="hover:underline cursor-pointer">Sell products on Amazon</li>
+                    <li class="hover:underline cursor-pointer">Sell on Amazon Business</li>
+                    <li class="hover:underline cursor-pointer">Sell apps on Amazon</li>
+                    <li class="hover:underline cursor-pointer">Become an Affiliate</li>
+                    <li class="hover:underline cursor-pointer">Advertise your products</li>
+                    <li class="hover:underline cursor-pointer">Self-publish with us</li>
+                    <li class="hover:underline cursor-pointer">Host on Amazon Hub</li>
+                </ul>
+
+                <ul>
+                    <li class="font-extrabold text-lg">Get To Know Us</li>
+                    <li class="hover:underline cursor-pointer">Careers</li>
+                    <li class="hover:underline cursor-pointer">About Amazon</li>
+                    <li class="hover:underline cursor-pointer">Invester Relations</li>
+                    <li class="hover:underline cursor-pointer">Amazon Devices</li>
+                    <li class="hover:underline cursor-pointer">Amazon Science</li>
+                </ul>
+
+                <ul>
+                    <li class="font-extrabold text-lg">Make Money With Us</li>
+                    <li class="hover:underline cursor-pointer">Sell products on Amazon</li>
+                    <li class="hover:underline cursor-pointer">Sell on Amazon Business</li>
+                    <li class="hover:underline cursor-pointer">Sell apps on Amazon</li>
+                    <li class="hover:underline cursor-pointer">Become an Affiliate</li>
+                    <li class="hover:underline cursor-pointer">Advertise your products</li>
+                    <li class="hover:underline cursor-pointer">Self-publish with us</li>
+                    <li class="hover:underline cursor-pointer">Host on Amazon Hub</li>
+                </ul>
+            </div>
+        </footer>
+        <!-- Footer Layout Section End -->
+
     </div>
 </template>
