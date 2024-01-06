@@ -23,7 +23,7 @@ import { Carousel, Slide, Navigation } from 'vue3-carousel';
         </Carousel>
 
         <!-- Category Section Start -->
-        <div class="relative -mt-[300px]">
+        <div class="relative -mt-[270px]">
             <div class="flex m-4 z-10 relative">
                 <div class="bg-white p-2 mx-10 text-md w-full text-center">
                     You are on amazon.com You can also shop on Amazon UK for millions of products with fast local delivery.
@@ -62,7 +62,7 @@ import { Carousel, Slide, Navigation } from 'vue3-carousel';
         widows: 40px;
         height: 200px;
         color: rgb(196, 196, 196);
-        /* margin-top: -100px; */
+        margin-top: -100px;
         border: transparent;
     }
 
