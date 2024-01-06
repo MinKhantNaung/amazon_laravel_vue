@@ -12,11 +12,20 @@ import CloseIcon from 'vue-material-design-icons/Close.vue'
 import ChevronRightIcon from 'vue-material-design-icons/ChevronRight.vue'
 
 const showMenu = ref(false)
+const accountAndList = ref(false)
 
+const accountAndListFunc = (bool) => {
+    setTimeout(() => {
+        accountAndList.value = bool
+    }, 150)
+}
 </script>
 
 <template>
     <div class="min-w-[1150px] bg-gray-100 h-full">
+
+        <div v-if="accountAndList" class="top-0 z-20 fixed w-full h-full bg-black bg-opacity-70"></div>
+
         <!-- Main Layout Section Start -->
         <div class="flex items-center bg-gray-900 h-[60px] py-2 fixed z-50 min-w-[1150px] w-full">
             <div class="flex">
@@ -69,7 +78,7 @@ const showMenu = ref(false)
                     </div>
                 </div>
 
-                <div class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300">
+                <div @mouseenter="accountAndListFunc(true)" @mouseleave="accountAndListFunc(false)" class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300">
                     <div class="flex items-center justify-center">
                         <div>
                             <div class="text-[12px] text-white font-extrabold">
@@ -82,6 +91,35 @@ const showMenu = ref(false)
                             </div>
                         </div>
                     </div>
+                    <!-- Account & List Dropdown Section Start -->
+                    <div v-if="accountAndList" class="bg-white absolute z-50 top-[56px] -ml-[230px] w-[480px] rounded-sm px-6">
+                        <div>
+                            <div class="flex items-center justify-between py-2.5 border-b">
+                                <div class="text-smp-2">Who's shopping? Select a profile.</div>
+                                <div class="flex items-center text-sm font-bold text-teal-600 hover:text-red-600 hover:underline">
+                                    Manage Profile
+                                    <ChevronRightIcon fillColor="#808080" :size="20" />
+                                </div>
+                            </div>
+
+                            <div class="flex">
+                                <div class="w-1/2 border-r">
+                                    <div class="pb-3">
+                                        <div class="font-extrabold pt-3">Your List</div>
+                                        <div class="text-sm hover:text-red-600 hover:underline pt-3">Create a List</div>
+                                    </div>
+                                </div>
+                                <div class="w-1/2 ml-5">
+                                    <div class="pb-3">
+                                        <div class="font-extrabold pt-3">Your Account</div>
+                                        <div class="text-sm hover:text-red-600 hover:underline pt-3">Account</div>
+                                        <div class="text-sm hover:text-red-600 hover:underline pt-3">Sign Out</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Account & List Dropdown Section End -->
                 </div>
 
                 <div class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300">
