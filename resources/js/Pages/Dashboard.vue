@@ -11,9 +11,9 @@ import { Carousel, Slide, Navigation } from 'vue3-carousel';
 
     <AuthenticatedLayout>
         <Carousel :items-to-show="1" :wrap-around="true">
-            <Slide v-for="slide in 10" :key="slide">
+            <Slide v-for="slide in 6" :key="slide">
                 <div class="carousel__item">
-                    <img src="https://via.placeholder.com/1200x350.png/004466?text=Testing" alt="">
+                    <img :src="`/images/carousel/slide${slide}.jpg`" alt="">
                 </div>
             </Slide>
 
@@ -23,7 +23,7 @@ import { Carousel, Slide, Navigation } from 'vue3-carousel';
         </Carousel>
 
         <!-- Category Section Start -->
-        <div class="relative -mt-[270px]">
+        <div class="relative -mt-[320px]">
             <div class="flex m-4 z-10 relative">
                 <div class="bg-white p-2 mx-10 text-md w-full text-center">
                     You are on amazon.com You can also shop on Amazon UK for millions of products with fast local delivery.
