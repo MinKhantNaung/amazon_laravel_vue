@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import { Link } from '@inertiajs/vue3';
+import { onMounted, ref } from 'vue';
+import { Link, usePage } from '@inertiajs/vue3';
 
 import MapMarkerOutlineIcon from 'vue-material-design-icons/MapMarkerOutline.vue'
 import MenuDownIcon from 'vue-material-design-icons/MenuDown.vue'
@@ -10,10 +10,14 @@ import MenuIcon from 'vue-material-design-icons/Menu.vue'
 import AccountCircleIcon from 'vue-material-design-icons/AccountCircle.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import ChevronRightIcon from 'vue-material-design-icons/ChevronRight.vue'
-import { Carousel, Slide, Navigation } from 'vue3-carousel';
+// if you use vue3-carousel, don't forget import below two
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide } from 'vue3-carousel';
 
 const showMenu = ref(false)
 const accountAndList = ref(false)
+
+const page = usePage();
 
 const accountAndListFunc = (bool) => {
     setTimeout(() => {
@@ -30,7 +34,7 @@ const accountAndListFunc = (bool) => {
         <!-- Main Layout Section Start -->
         <div class="flex items-center bg-gray-900 h-[60px] py-2 fixed z-50 min-w-[1150px] w-full">
             <div class="flex">
-                <Link class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300 text-white">
+                <Link href="/" class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300 text-white">
                     <img width="100" src="/images/logo/AMAZON_LOGO.png" alt="">
                 </Link>
 
@@ -203,7 +207,7 @@ const accountAndListFunc = (bool) => {
                 </div>
                 <!-- <div class="flex justify-center items-stretch"> -->
                     <Carousel :items-to-show="5" :wrap-around="true">
-                        <Slide v-for="product in $page.props.random_products" :key="product" class="p-4 text-center mx-auto">
+                        <Slide v-for="product in page.props.random_products" :key="product" class="p-4 text-center mx-auto">
                             <div class="carousel__item">
                                 <div class="w-[158px] h-[150px] overflow-hidden">
                                     <img :src="product.image" alt="">

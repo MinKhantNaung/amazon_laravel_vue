@@ -33,7 +33,7 @@ import { Carousel, Slide, Navigation } from 'vue3-carousel';
 
             <div class="grid grid-cols-3 m-4 z-10 relative">
                 <div v-for="category in $page.props.categories" :key="category" class="p-1.5 flex">
-                    <Link href="/" class="bg-white p-5">
+                    <Link :href="route('categories.index', { id: category.id })" class="bg-white p-5">
                         <div class="text-2xl font-extrabold flex">{{ category.name }}</div>
                         <div class="flex">
                             <img :src="`/images/categories/${category.id}.png`" alt="" class="object-fill">
@@ -52,9 +52,9 @@ import { Carousel, Slide, Navigation } from 'vue3-carousel';
 <style>
     .carousel__item {
         font-size: 20px;
-        display: flex;
+        /* display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: center; */
     }
 
     .carousel__prev,
