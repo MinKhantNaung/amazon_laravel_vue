@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,7 @@ Route::get('/', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 Route::get('/categories/{id}', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/products/{id}', [ProductController::class, 'index'])->name('products.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

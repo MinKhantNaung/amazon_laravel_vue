@@ -10,7 +10,7 @@ defineProps({
 
 <template>
     <div class="border border-gray-300 rounded-md bg-white p-1.5">
-        <Link href="/" class="w-full">
+        <Link :href="route('products.index', { id: product.id })" class="w-full">
             <img :src="product.image" alt="" class="rounded-md w-full">
             <div class="text-left">
                 <div class="text-[16px] text-gray-900 font-extrabold cursor-pointer">
