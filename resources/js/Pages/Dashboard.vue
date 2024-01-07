@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Navigation } from 'vue3-carousel';
@@ -32,16 +32,16 @@ import { Carousel, Slide, Navigation } from 'vue3-carousel';
             </div>
 
             <div class="grid grid-cols-3 m-4 z-10 relative">
-                <div class="p-1.5 flex">
-                    <div class="bg-white p-5">
-                        <div class="text-2xl font-extrabold flex">Computers</div>
+                <div v-for="category in $page.props.categories" :key="category" class="p-1.5 flex">
+                    <Link href="/" class="bg-white p-5">
+                        <div class="text-2xl font-extrabold flex">{{ category.name }}</div>
                         <div class="flex">
-                            <img src="https://via.placeholder.com/1000x756" alt="" class="object-fill">
+                            <img :src="`/images/categories/${category.id}.png`" alt="" class="object-fill">
                         </div>
                         <button class="pt-3 -mb-2 text-teal-800 font-bold hover:underline hover:text-red-400 cursor-pointer">
                             See More
                         </button>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@ import { Carousel, Slide, Navigation } from 'vue3-carousel';
         width: 40px;
         height: 200px;
         color: rgb(212, 212, 212);
-        /* margin-top: -100px; */
+        margin-top: -100px;
         border: 3px solid rgb(217, 217, 217);
     }
 </style>

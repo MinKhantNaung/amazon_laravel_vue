@@ -10,6 +10,7 @@ import MenuIcon from 'vue-material-design-icons/Menu.vue'
 import AccountCircleIcon from 'vue-material-design-icons/AccountCircle.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import ChevronRightIcon from 'vue-material-design-icons/ChevronRight.vue'
+import { Carousel, Slide, Navigation } from 'vue3-carousel';
 
 const showMenu = ref(false)
 const accountAndList = ref(false)
@@ -200,19 +201,28 @@ const accountAndListFunc = (bool) => {
                 <div class="text-[23px] pt-4 font-extrabold">
                     Recommended based on your shopping trends
                 </div>
-                <div class="flex justify-center items-stretch">
-                    <div class="p-4 text-center mx-auto">
-                        <div class="w-[158px] h-[150px] overflow-hidden">
-                            <img src="https://via.placeholder.com/158x150" alt="">
-                        </div>
-                        <div class="w-[160px] text-[12px] py-2 text-teal-600 font-extrabold hover:text-red-600 cursor-pointer">
-                            This is a test title
-                        </div>
-                        <div class="flex justify-start">
-                            <div class="text-xs font-extrabold text-red-600 w-full text-left">$99,99</div>
-                        </div>
-                    </div>
-                </div>
+                <!-- <div class="flex justify-center items-stretch"> -->
+                    <Carousel :items-to-show="5" :wrap-around="true">
+                        <Slide v-for="product in $page.props.random_products" :key="product" class="p-4 text-center mx-auto">
+                            <div class="carousel__item">
+                                <div class="w-[158px] h-[150px] overflow-hidden">
+                                    <img :src="product.image" alt="">
+                                </div>
+                                <div class="w-[160px] text-[12px] py-2 text-teal-600 font-extrabold hover:text-red-600 cursor-pointer">
+                                    {{ product.title.substring(0, 40) }}...
+                                </div>
+                                <div class="flex justify-start">
+                                    <div class="text-xs font-extrabold text-red-600 w-full text-left">${{ product.price }}</div>
+                                    <img width="50" src="/images/logo/PRIME_LOGO.png" alt="">
+                                </div>
+                            </div>
+                        </Slide>
+
+                        <!-- <template #addons>
+                            <Navigation />
+                        </template> -->
+                    </Carousel>
+                <!-- </div> -->
             </div>
         </div>
 
@@ -283,9 +293,11 @@ const accountAndListFunc = (bool) => {
                 Shop By Department
             </div>
 
-            <div class="hover:bg-gray-200 pl-6 pr-3">
-                <div class="py-2.5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
-                    Computers <ChevronRightIcon :size="20" fillColor="#808080" />
+            <div v-for="category in $page.props.categories" :key="category">
+                <div class="hover:bg-gray-200 pl-6 pr-3">
+                    <Link href="/" class="py-2.5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
+                        {{ category.name }} <ChevronRightIcon :size="20" fillColor="#808080" />
+                    </Link>
                 </div>
             </div>
         </div>
