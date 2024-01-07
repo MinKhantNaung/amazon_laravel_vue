@@ -1,6 +1,8 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import ProductComponent from '@/Components/ProductComponent.vue';
 
 import { Carousel, Slide } from 'vue3-carousel';
 
@@ -29,7 +31,7 @@ defineProps({
 
         <div class="grid grid-cols-4 gap-1">
             <div v-for="product in products_of_category" :key="product" class="m-1">
-                {{ product }}
+                <ProductComponent :product="product" />
             </div>
         </div>
     </AuthenticatedLayout>
