@@ -24,6 +24,8 @@ Route::get('/categories/{id}', [CategoryController::class, 'index'])->name('cate
 Route::get('/products/{id}', [ProductController::class, 'index'])->name('products.index');
 Route::get('/address', [AddressController::class, 'index'])->name('address.index');
 Route::get('/address/add', [AddressController::class, 'add'])->name('address.add');
+Route::post('/address/store', [AddressController::class, 'store'])->name('address.store');
+Route::delete('/address/{id}', [AddressController::class, 'destroy'])->name('address.destroy');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
