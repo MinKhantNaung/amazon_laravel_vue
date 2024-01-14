@@ -34,30 +34,43 @@ const accountAndListFunc = (bool) => {
         <!-- Main Layout Section Start -->
         <div class="flex items-center bg-gray-900 h-[60px] py-2 fixed z-50 min-w-[1150px] w-full">
             <div class="flex">
-                <Link href="/" class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300 text-white">
-                    <img width="100" src="/images/logo/AMAZON_LOGO.png" alt="">
+                <Link href="/"
+                    class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300 text-white">
+                <img width="100" src="/images/logo/AMAZON_LOGO.png" alt="">
                 </Link>
 
                 <div class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300 text-white">
-                    <Link :href="route('address.index')">
-                        <div class="flex items-center justify-center">
-                            <MapMarkerOutlineIcon class="pt-2 -ml-1" fillColor="#f5f5f5" />
+                    <Link v-if="$page.props.auth.user" :href="route('address.index')">
+                    <div class="flex items-center justify-center">
+                        <MapMarkerOutlineIcon class="pt-2 -ml-1" fillColor="#f5f5f5" />
 
-                            <div>
-                                <div class="text-[13px] text-gray-300 font-extrabold">
-                                    <div>
-                                        Delivery to John
-                                    </div>
-                                </div>
-
-                                <div class="text-[15px] text-white -mt-1.5 font-extrabold">
-                                    <div>
-                                        London SW2 SW2
-                                    </div>
+                        <div>
+                            <div class="text-[13px] text-gray-300 font-extrabold">
+                                <div>
+                                    Delivery to {{ $page.props.auth.user.first_name }}
                                 </div>
                             </div>
+
+                            <div v-if="$page.props.auth.address" class="text-[15px] text-white -mt-1.5 font-extrabold">
+                                <div>
+                                    {{ $page.props.auth.address.city }} {{ $page.props.auth.address.post_code }}
+                                </div>
+                            </div>
+                            <div v-else>
+                                <div class="text-[15px] text-white -mt-1.5 font-extrabold">Select your address</div>
+                            </div>
                         </div>
+                    </div>
                     </Link>
+                    <div v-else class="flex items-center justify-center">
+                        <MapMarkerOutlineIcon class="pt-2 -ml-1" fillColor="#f5f5f5" />
+                        <div>
+                            <div class="text-[13px] text-gray-300 font-extrabold">
+                                <div>Hello</div>
+                                <div class="text-[15px] text-white -mt-1.5 font-extrabold">Select your address</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -85,12 +98,14 @@ const accountAndListFunc = (bool) => {
                     </div>
                 </div>
 
-                <div @mouseenter="accountAndListFunc(true)" @mouseleave="accountAndListFunc(false)" class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300">
+                <div @mouseenter="accountAndListFunc(true)" @mouseleave="accountAndListFunc(false)"
+                    class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300">
                     <div class="flex items-center justify-center">
                         <div>
                             <div class="text-[12px] text-white font-extrabold">
                                 Hello,
-                                <span>Sign In</span>
+                                <span v-if="$page.props.auth.user">{{ $page.props.auth.user.first_name }}</span>
+                                <span v-else>Sign In</span>
                             </div>
                             <div class="flex items-center">
                                 <div class="text-[15px] text-white -mt-1.5 font-extrabold">Account & List</div>
@@ -99,11 +114,13 @@ const accountAndListFunc = (bool) => {
                         </div>
                     </div>
                     <!-- Account & List Dropdown Section Start -->
-                    <div v-if="accountAndList" class="bg-white absolute z-50 top-[56px] -ml-[230px] w-[480px] rounded-sm px-6">
-                        <div>
+                    <div v-if="accountAndList"
+                        class="bg-white absolute z-50 top-[56px] -ml-[230px] w-[480px] rounded-sm px-6">
+                        <div v-if="$page.props.auth.user">
                             <div class="flex items-center justify-between py-2.5 border-b">
                                 <div class="text-smp-2">Who's shopping? Select a profile.</div>
-                                <div class="flex items-center text-sm font-bold text-teal-600 hover:text-red-600 hover:underline">
+                                <div
+                                    class="flex items-center text-sm font-bold text-teal-600 hover:text-red-600 hover:underline">
                                     Manage Profile
                                     <ChevronRightIcon fillColor="#808080" :size="20" />
                                 </div>
@@ -119,9 +136,26 @@ const accountAndListFunc = (bool) => {
                                 <div class="w-1/2 ml-5">
                                     <div class="pb-3">
                                         <div class="font-extrabold pt-3">Your Account</div>
-                                        <div class="text-sm hover:text-red-600 hover:underline pt-3">Account</div>
-                                        <div class="text-sm hover:text-red-600 hover:underline pt-3">Sign Out</div>
+                                        <Link :href="route('profile.edit')"
+                                            class="text-sm block hover:text-red-600 hover:underline pt-3">Account</Link>
+                                        <Link :href="route('logout')" method="post" as="button"
+                                            class="text-sm block hover:text-red-600 hover:underline pt-3">Sign Out</Link>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-else>
+                            <div class="p-4 text-center">
+                                <Link :href="route('login')"
+                                    class="text-center items-center px-20 py-1.5 bg-[#fcba1f] border border-gray-600 rounded-sm text-sm font-extrabold text-black">
+                                Sign In
+                                </Link>
+                                <div class="text-sm pt-4">
+                                    New Customer?
+                                    <Link :href="route('register')" class="text-blue-700 hover:text-red-700">
+                                    Start Here
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -155,40 +189,47 @@ const accountAndListFunc = (bool) => {
 
         <div class="flex items-center justify-between bg-[#232f3e] h-[38px] fixed z-40 min-w-[1150px] w-full mt-[60px]">
             <div class="flex">
-                <div @click="showMenu = true" class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                <div @click="showMenu = true"
+                    class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-between px-2">
                         <MenuIcon fillColor="#F5F5F5" :size="26" class="mr-0.5" />
                         <div class="text-[14px] text-white font-extrabold">All</div>
                     </div>
                 </div>
-                <div class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                <div
+                    class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-between px-2">
                         <div class="text-[14px] text-white font-extrabold">Today's Deals</div>
                     </div>
                 </div>
-                <div class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                <div
+                    class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-between px-2">
                         <div class="text-[14px] text-white font-extrabold">Gift Cards</div>
                     </div>
                 </div>
-                <div class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                <div
+                    class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-between px-2">
                         <div class="text-[14px] text-white font-extrabold">Buy Again</div>
                     </div>
                 </div>
-                <div class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                <div
+                    class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-between px-2">
                         <div class="text-[14px] text-white font-extrabold">Customer Service</div>
                     </div>
                 </div>
-                <div class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                <div
+                    class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-between px-2">
                         <div class="text-[14px] text-white font-extrabold">John's Amazon.com</div>
                     </div>
                 </div>
             </div>
             <div class="flex">
-                <div class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                <div
+                    class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-between px-2">
                         <div class="text-[14px] text-white font-extrabold">Holiday Fashion Deals</div>
                     </div>
@@ -208,26 +249,29 @@ const accountAndListFunc = (bool) => {
                     Recommended based on your shopping trends
                 </div>
                 <!-- <div class="flex justify-center items-stretch"> -->
-                    <Carousel :items-to-show="5" :wrap-around="true">
-                        <Slide v-for="product in page.props.random_products" :key="product" class="p-4 text-center mx-auto">
-                            <div class="carousel__item">
-                                <div class="w-[158px] h-[150px] overflow-hidden">
-                                    <img :src="product.image" alt="">
-                                </div>
-                                <div class="w-[160px] text-[12px] py-2 text-teal-600 font-extrabold hover:text-red-600 cursor-pointer">
-                                    {{ product.title.substring(0, 40) }}...
-                                </div>
-                                <div class="flex justify-start">
-                                    <div class="text-xs font-extrabold text-red-600 w-full text-left">${{ product.price }}</div>
-                                    <img width="50" src="/images/logo/PRIME_LOGO.png" alt="">
-                                </div>
+                <Carousel :items-to-show="5" :wrap-around="true">
+                    <Slide v-for="product in page.props.random_products" :key="product" class="p-4 text-center mx-auto">
+                        <div class="carousel__item">
+                            <div class="w-[158px] h-[150px] overflow-hidden">
+                                <img :src="product.image" alt="">
                             </div>
-                        </Slide>
+                            <Link :href="route('products.index', { id: product.id })">
+                            <div
+                                class="w-[160px] text-[12px] py-2 text-teal-600 font-extrabold hover:text-red-600 cursor-pointer">
+                                {{ product.title.substring(0, 40) }}...
+                            </div>
+                            </Link>
+                            <div class="flex justify-start">
+                                <div class="text-xs font-extrabold text-red-600 w-full text-left">${{ product.price }}</div>
+                                <img width="50" src="/images/logo/PRIME_LOGO.png" alt="">
+                            </div>
+                        </div>
+                    </Slide>
 
-                        <!-- <template #addons>
+                    <!-- <template #addons>
                             <Navigation />
                         </template> -->
-                    </Carousel>
+                </Carousel>
                 <!-- </div> -->
             </div>
         </div>
@@ -284,13 +328,13 @@ const accountAndListFunc = (bool) => {
 
     <!-- Side Menu Section Start -->
     <div v-if="showMenu" class="top-0 z-50 fixed w-full h-full bg-black bg-opacity-70"
-    :class="{ 'animate__animated animate__fadeIn animate__faster': showMenu }">
+        :class="{ 'animate__animated animate__fadeIn animate__faster': showMenu }">
 
-        <CloseIcon @click="showMenu = false" fillColor="#DCDCDC" :size="30" class="ml-2.5 mt-3.5 left-80 cursor-pointer fixed z-50"
-        :class="{ 'animate__animated animate__fadeIn animate__faster': showMenu }" />
+        <CloseIcon @click="showMenu = false" fillColor="#DCDCDC" :size="30"
+            class="ml-2.5 mt-3.5 left-80 cursor-pointer fixed z-50"
+            :class="{ 'animate__animated animate__fadeIn animate__faster': showMenu }" />
 
-        <div class="w-80 h-full bg-white"
-        :class="{ 'animate__animated animate__slideInLeft animate__faster': showMenu }">
+        <div class="w-80 h-full bg-white" :class="{ 'animate__animated animate__slideInLeft animate__faster': showMenu }">
             <div class="bg-[#232f3e] font-extrabold text-[18px] flex items-center p-2 text-white pl-7">
                 <span>Hello, Sign in</span>
             </div>
@@ -301,8 +345,10 @@ const accountAndListFunc = (bool) => {
 
             <div v-for="category in $page.props.categories" :key="category">
                 <div class="hover:bg-gray-200 pl-6 pr-3">
-                    <Link href="/" class="py-2.5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
-                        {{ category.name }} <ChevronRightIcon :size="20" fillColor="#808080" />
+                    <Link href="/"
+                        class="py-2.5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
+                    {{ category.name }}
+                    <ChevronRightIcon :size="20" fillColor="#808080" />
                     </Link>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
@@ -32,14 +32,14 @@ defineProps({
                 <div class="border border-gray-300 rounded-lg">
                     <div class="my-2 mx-3 mb-2">
                         <div class="flex items-center justify-center border-b border-gray-300 pb-1">
-                            <Link href="/" class="flex items-center text-xs font-extrabold text-teal-700 hover:text-red-600 cursor-pointer">
-                                <MapMarkerOutlineIcon :size="17" /> Delivery to FirstName - PostCode
+                            <Link v-if="$page.props.auth.user" :href="route('address.index')" class="flex items-center text-xs font-extrabold text-teal-700 hover:text-red-600 cursor-pointer">
+                                <MapMarkerOutlineIcon :size="17" /> Delivery to {{ $page.props.auth.user.first_name }} - {{ $page.props.auth.address.post_code }}
                             </Link>
-                            <Link :href="route('login')" class="flex items-center text-xs font-extrabold text-teal-700 hover:text-red-600 cursor-pointer">
+                            <Link v-else :href="route('login')" class="flex items-center text-xs font-extrabold text-teal-700 hover:text-red-600 cursor-pointer">
                                 SIGN IN
                             </Link>
                         </div>
-                        <div class="flex items-center justify-center pt-2">
+                        <div class="flex items-center justify-between pt-2">
                             <div class="text-red-600 text-sm font-bold">${{ product.price }}</div>
                             <button class="bg-yellow-400 px-2 font-bold text-sm rounded-lg border shadow-sm cursor-pointer">
                                 <!-- <span>Item Added</span> -->
