@@ -53,6 +53,8 @@ class ProfileController extends Controller
 
         Auth::logout();
 
+        $user->address->delete();
+
         $user->delete();
 
         $request->session()->invalidate();
