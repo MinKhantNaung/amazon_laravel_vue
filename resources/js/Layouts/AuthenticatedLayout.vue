@@ -13,6 +13,11 @@ import ChevronRightIcon from 'vue-material-design-icons/ChevronRight.vue'
 // if you use vue3-carousel, don't forget import below two
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide } from 'vue3-carousel';
+import { useCartStore } from '@/Store/cart.js'
+import { storeToRefs } from 'pinia';
+
+const cartStore = useCartStore()
+const { cart } = storeToRefs(cartStore)
 
 const showMenu = ref(false)
 const accountAndList = ref(false)
@@ -34,7 +39,7 @@ const accountAndListFunc = (bool) => {
         <!-- Main Layout Section Start -->
         <div class="flex items-center bg-gray-900 h-[60px] py-2 fixed z-50 min-w-[1150px] w-full">
             <div class="flex">
-                <Link href="/"
+                <Link :href="route('dashboard')"
                     class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300 text-white">
                 <img width="100" src="/images/logo/AMAZON_LOGO.png" alt="">
                 </Link>
@@ -176,7 +181,7 @@ const accountAndListFunc = (bool) => {
 
                 <div class="relative h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300">
                     <span class="absolute text-center right-[21px] w-[14px] -top-0 rounded-full text-[20px]">
-                        <div class="text-orange-400 font-extrabold bg-gray-900 h-[16px]">0</div>
+                        <div class="text-orange-400 font-extrabold bg-gray-900 h-[16px]">{{ cart.length }}</div>
                     </span>
                     <div class="flex items-center justify-center">
                         <CartMinusIcon fillColor="#FCFCFC" :size="40" class="-mt-0.5" />

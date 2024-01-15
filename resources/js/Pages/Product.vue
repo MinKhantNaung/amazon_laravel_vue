@@ -1,12 +1,33 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
+import { computed, toRefs } from 'vue';
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 import MapMarkerOutlineIcon from 'vue-material-design-icons/MapMarkerOutline.vue'
+import { useCartStore } from '@/Store/cart.js'
+import { storeToRefs } from 'pinia';
 
-defineProps({
+const cartStore = useCartStore()
+const { cart } = storeToRefs(cartStore)
+
+const props = defineProps({
     product: Object,
+})
+
+const { product } = toRefs(props)
+
+const addToCart = (product) => {
+    cart.value.push(product)
+}
+
+const isAlreadyInCart = computed(() => {
+    let isAlready = cart.value.find(c => c.id === product.value.id)
+    if (isAlready) {
+        return true
+    } else {
+        return false
+    }
 })
 
 </script>
@@ -32,18 +53,21 @@ defineProps({
                 <div class="border border-gray-300 rounded-lg">
                     <div class="my-2 mx-3 mb-2">
                         <div class="flex items-center justify-center border-b border-gray-300 pb-1">
-                            <Link v-if="$page.props.auth.user" :href="route('address.index')" class="flex items-center text-xs font-extrabold text-teal-700 hover:text-red-600 cursor-pointer">
-                                <MapMarkerOutlineIcon :size="17" /> Delivery to {{ $page.props.auth.user.first_name }} - {{ $page.props.auth.address.post_code }}
+                            <Link v-if="$page.props.auth.user" :href="route('address.index')"
+                                class="flex items-center text-xs font-extrabold text-teal-700 hover:text-red-600 cursor-pointer">
+                            <MapMarkerOutlineIcon :size="17" /> Delivery to {{ $page.props.auth.user.first_name }} -
+                            <span v-if="$page.props.auth.address">{{ $page.props.auth.address.post_code }}</span>
                             </Link>
-                            <Link v-else :href="route('login')" class="flex items-center text-xs font-extrabold text-teal-700 hover:text-red-600 cursor-pointer">
-                                SIGN IN
+                            <Link v-else :href="route('login')"
+                                class="flex items-center text-xs font-extrabold text-teal-700 hover:text-red-600 cursor-pointer">
+                            SIGN IN
                             </Link>
                         </div>
                         <div class="flex items-center justify-between pt-2">
                             <div class="text-red-600 text-sm font-bold">${{ product.price }}</div>
-                            <button class="bg-yellow-400 px-2 font-bold text-sm rounded-lg border shadow-sm cursor-pointer">
-                                <!-- <span>Item Added</span> -->
-                                <span>Add to Cart</span>
+                            <button @click.prevent="addToCart(product)" :disabled="isAlreadyInCart" class="bg-yellow-400 px-2 font-bold text-sm rounded-lg border shadow-sm cursor-pointer">
+                                <span v-if="isAlreadyInCart">Item Added</span>
+                                <span v-else>Add to Cart</span>
                             </button>
                         </div>
                     </div>
