@@ -20,6 +20,9 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+Route::get('/cart', function () {
+    return Inertia::render('Cart');
+})->name('cart.index');
 Route::get('/categories/{id}', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/products/{id}', [ProductController::class, 'index'])->name('products.index');
 Route::get('/address', [AddressController::class, 'index'])->name('address.index');

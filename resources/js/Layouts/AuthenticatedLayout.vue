@@ -179,14 +179,14 @@ const accountAndListFunc = (bool) => {
                     </div>
                 </div>
 
-                <div class="relative h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300">
+                <Link :href="route('cart.index')" class="relative h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-gray-300 cursor-pointer">
                     <span class="absolute text-center right-[21px] w-[14px] -top-0 rounded-full text-[20px]">
                         <div class="text-orange-400 font-extrabold bg-gray-900 h-[16px]">{{ cart.length }}</div>
                     </span>
                     <div class="flex items-center justify-center">
                         <CartMinusIcon fillColor="#FCFCFC" :size="40" class="-mt-0.5" />
                     </div>
-                </div>
+                </Link>
             </div>
 
         </div>
