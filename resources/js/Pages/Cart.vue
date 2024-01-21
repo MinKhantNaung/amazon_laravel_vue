@@ -78,11 +78,12 @@ const totalWithOutDot = () => {
                     total: totalWithOutDot(),
                     total_decimal: total,
                     items: cart
-                }) : route('login')" :disabled="Number(total) === 0.00"
+                }) : route('login')" as="button"
                     :class="Number(total) === 0.00 ? 'bg-gray-400' : 'bg-yellow-400 hover:bg-yellow-500'"
                     class="block mt-4 w-full text-center py-1 font-bold text-sm rounded-lg border shadow-sm cursor-pointer">
-                    Proceed To Checkout
+                Proceed To Checkout
                 </Link>
             </div>
-    </div>
-</AuthenticatedLayout></template>
+        </div>
+    </AuthenticatedLayout>
+</template>

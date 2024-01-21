@@ -12,7 +12,7 @@ import CloseIcon from 'vue-material-design-icons/Close.vue'
 import ChevronRightIcon from 'vue-material-design-icons/ChevronRight.vue'
 // if you use vue3-carousel, don't forget import below two
 import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide } from 'vue3-carousel';
+import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import { useCartStore } from '@/Store/cart.js'
 import { storeToRefs } from 'pinia';
 
@@ -274,8 +274,8 @@ const accountAndListFunc = (bool) => {
                     </Slide>
 
                     <!-- <template #addons>
-                            <Navigation />
-                        </template> -->
+                        <Navigation />
+                    </template> -->
                 </Carousel>
                 <!-- </div> -->
             </div>
