@@ -67,7 +67,6 @@ class CheckoutController extends Controller
             'payment_intent' => $request->payment_intent
         ]);
 
-        return to_route('dashboard');
-        // return to_route('checkout_success.index');
+        return to_route('checkout_success.index');
     }
 }

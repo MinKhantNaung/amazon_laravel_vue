@@ -79,7 +79,7 @@ const totalWithOutDot = () => {
                     total: totalWithOutDot(),
                     total_decimal: total,
                     items: cart
-                })" method="post" as="button" :class="Number(total) === 0.00 ? 'bg-gray-400' : 'bg-yellow-400 hover:bg-yellow-500'"
+                })" method="post" as="button" :disabled="Number(total) === 0.00" :class="Number(total) === 0.00 ? 'bg-gray-400 cursor-not-allowed' : 'bg-yellow-400 hover:bg-yellow-500'"
                     class="block mt-4 w-full text-center py-1 font-bold text-sm rounded-lg border shadow-sm cursor-pointer">
                 Proceed To Checkout
                 </Link>
