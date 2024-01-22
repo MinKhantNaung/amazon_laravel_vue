@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/address/{id}', [AddressController::class, 'destroy'])->name('address.destroy');
 
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::put('/checkout', [CheckoutController::class, 'update'])->name('checkout.update');
 });
 
 require __DIR__ . '/auth.php';

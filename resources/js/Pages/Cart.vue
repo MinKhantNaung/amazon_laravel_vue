@@ -25,6 +25,7 @@ const total = computed(() => {
 
 const totalWithOutDot = () => {
     let num = String(total.value).split('.').join('')
+    return num;
 }
 
 </script>
@@ -74,11 +75,15 @@ const totalWithOutDot = () => {
                     Select this option at checkout.
                 </div>
                 <div class="font-extrabold text-[18px] pt-4">Subtotal (Items: {{ cart.length }}): ${{ total }}</div>
-                <Link :href="$page.props.auth.user !== null ? route('checkout.index', {
+                <Link v-if="$page.props.auth.user" :href="route('checkout.store', {
                     total: totalWithOutDot(),
                     total_decimal: total,
                     items: cart
-                }) : route('login')" as="button"
+                })" method="post" as="button" :class="Number(total) === 0.00 ? 'bg-gray-400' : 'bg-yellow-400 hover:bg-yellow-500'"
+                    class="block mt-4 w-full text-center py-1 font-bold text-sm rounded-lg border shadow-sm cursor-pointer">
+                Proceed To Checkout
+                </Link>
+                <Link v-else :href="route('login')"
                     :class="Number(total) === 0.00 ? 'bg-gray-400' : 'bg-yellow-400 hover:bg-yellow-500'"
                     class="block mt-4 w-full text-center py-1 font-bold text-sm rounded-lg border shadow-sm cursor-pointer">
                 Proceed To Checkout
