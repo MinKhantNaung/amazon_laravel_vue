@@ -350,7 +350,7 @@ const accountAndListFunc = (bool) => {
 
             <div v-for="category in $page.props.categories" :key="category">
                 <div class="hover:bg-gray-200 pl-6 pr-3">
-                    <Link href="/"
+                    <Link :href="route('categories.index', { id: category.id })"
                         class="py-2.5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
                     {{ category.name }}
                     <ChevronRightIcon :size="20" fillColor="#808080" />
